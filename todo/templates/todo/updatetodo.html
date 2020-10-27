@@ -1,0 +1,36 @@
+{% extends 'todo/base.html' %}
+{% block ebolus %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'todo/current.css' %}">
+    <title>Current To Dos</title>
+  </head>
+  <body>
+
+    <h1 class="h1">Edit To Do Item</h1>
+
+    <section class="container s1">
+
+      <form method="post">
+        {% csrf_token %}
+        {% load widget_tweaks %}
+
+        {% for field in form %}
+        <div class="form-group {% if field.errors %}alert alert-danger{% endif %}">
+          {{ field.errors }}
+          {{ field.label_tag }}
+          {% render_field field class="form-control" %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-info">Save</button>
+        <a href="{% url 'deletetodo' todo.id%}" class="b4 btn btn-danger">Delete</a>
+      </form>
+
+    </section>
+
+    {% endblock %}
+  </body>
+</html>

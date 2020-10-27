@@ -1,0 +1,43 @@
+{% extends 'todo/base.html' %}
+{% block ebolus %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'todo/current.css' %}">
+    <title>Current To Dos</title>
+  </head>
+  <body>
+
+    <h1 class="h1">{{ todos.count }} Current To Do{{ todos.count|pluralize }}</h1>
+
+    <section class="container s1">
+
+      {% if todos %}
+      {% for todo in todos %}
+        <ul class="list-group">
+          {% if todo.important %}
+          <a href="{% url 'updatetodo' todo.id %}"><li class="list-group-item list-group-item-danger">
+            <b>{{ todo.title }}</b>
+            {% if todo.memo %} - {{ todo.memo }}{% endif %}
+          </li></a>
+          {% else %}
+          <a href="{% url 'updatetodo' todo.id %}"><li class="list-group-item list-group-item-light">
+            <b>{{ todo.title }}</b>
+            {% if todo.memo %} - {{ todo.memo }}{% endif %}
+          </li></a>
+          {% endif %}
+        </ul>
+      {% endfor %}
+      {% else %}
+        <div class="text-center">
+          <h2>Seems like you have no To Dos... Good work!</h2>
+          <br>
+          <a role="button" class="btn btn-info" href="{% url 'create' %}">New To Do</a>
+        </div>
+      {% endif %}
+
+    </section>
+    {% endblock %}
+  </body>
+</html>

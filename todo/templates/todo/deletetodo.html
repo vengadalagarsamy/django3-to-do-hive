@@ -1,0 +1,28 @@
+
+{% extends 'todo/base.html' %}
+{% block ebolus %}
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'todo/current.css' %}">
+    <title>Current To Dos</title>
+  </head>
+  <body>
+
+    <h1 class="h2">Are you sure you want to delete this To Do?</h1>
+
+    <section class="container s2">
+
+      <h2 class="h3">(Take another look:<a href="{% url 'updatetodo' todo.id %}"> {{ todo.title }}</a>)</h2>
+
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" value="Create To-Do-Item" class="delete btn btn-danger">Delete</button>
+      </form>
+
+    </section>
+    {% endblock %}
+  </body>
+</html>
